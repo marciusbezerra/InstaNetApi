@@ -64,7 +64,7 @@ namespace InstagramApiSharp.Classes.Android.DeviceInfo
             deviceid = DeviceId;
             return res;
         }
-        internal string GenerateChallengeSignature(InstaApiVersion apiVersion, string signatureKey,string csrfToken, out string deviceid)
+        internal string GenerateChallengeSignature(InstaApiVersion apiVersion, string signatureKey, string csrfToken, out string deviceid)
         {
             if (string.IsNullOrEmpty(signatureKey))
                 signatureKey = apiVersion.SignatureKey;
@@ -99,10 +99,18 @@ namespace InstagramApiSharp.Classes.Android.DeviceInfo
 
         internal static string GenerateUploadId()
         {
-            var timeSpan = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0);
-            var uploadId = (long) timeSpan.TotalSeconds;
-            var u = (uploadId * ExtensionHelper.Rnd.Next(1111, 99999)) - ExtensionHelper.Rnd.Next(1000, 99999);
-            return $"{u}{ExtensionHelper.Rnd.Next(33333, 9999999)}";
+            // old code...
+            // var timeSpan = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0);
+            // var uploadId = (long)timeSpan.TotalSeconds;
+            // var u = (uploadId * ExtensionHelper.Rnd.Next(1111, 99999)) - ExtensionHelper.Rnd.Next(1000, 99999);
+            // return $"{u}{ExtensionHelper.Rnd.Next(33333, 9999999)}";
+
+            // new code...
+            int min = 1;
+            int max = int.MaxValue;
+            Random random = new Random();
+            int number = random.Next(min, max);
+            return $"{number}";
         }
         //internal static string GenerateRandomUploadIdOLD()
         //{
